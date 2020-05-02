@@ -1,0 +1,51 @@
+<!DOCTYPE hmtl>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Datos de su grafo,</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/main.css') }}">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons%22%3E">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css%22%3E">
+</head>
+
+
+
+
+<body>
+    <div class="form">
+
+        <p>Formulario grafos</p>
+        <form action="/mi primer grafo" method="POST" method="GET">
+
+            <p>Cantidad vertices</p>
+            <label for="cantidad_vertices">Cantidad de vertices</label>
+            <br>
+            <input type="text" name="cantidad_vertices" placeholder="cantidad de vertices" required>
+            <br>
+
+            <p>Aristas</p>
+            <label for="Aristas">Aristas</label>
+            <br>
+            <input type="text" name="Aristas" placeholder="Ingrese Aristas" required>
+
+
+
+            <p>Tipo Grafo</p>
+            <label for="Tipo_Grafo">Tipo de grafo</label>
+            <br>
+
+            <input type="text" name="Tipo_Grafo" list="Tipo_Grafo"  placeholder="Simple, Digrafo, Multigrafo, etc" required >
+            <datalist id="Tipo_Grafo">
+                <option value="Simple">Grafo simple</option>
+                <option value="Digrafo">Grafo dirigido</option>
+                <option value="Multigrafo">Grafo multiple</option>
+            </datalist>
+
+
+            <input type="submit" value="Enviar">
+
+
+        </form>
+    </div>
+</body>
+</html>
