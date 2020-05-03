@@ -1,0 +1,242 @@
+var filas, dato, i,t, j, col, tabla, matriz,matrizAux,matrizRes;
+var aux;
+let inicio=0;
+let ini;
+let llega;
+t=1;
+var partede, llegaA;
+partede= document.getElementById('inicioCaminos').value;
+llegaA = document.getElementById('llegadaCaminos').value;
+function crear()
+{
+  vertices = document.getElementById("cant_vertices").value;
+  matriz=new Array(vertices);
+  filas=vertices;
+  col=filas;
+  for(i=0;i<filas;i++)
+  {
+    matriz[i]= new Array(filas);
+    for(j=0;j<filas;j++)
+    {
+      aux=prompt("Es adyacente el vertice["+i+"] con "+"["+j+"]   (1:sí  0:no  /por defecto=0):");
+      if (aux == 1)
+      {
+       matriz[i][j]=1;
+      }
+     else
+     {
+      if(aux ==0)
+        matriz[i][j]=0;
+      else{
+        alert("INGRESE UN 0 O UN 1")
+        matriz[i][j]=0;
+      }   
+     }
+    }
+  }
+}
+function imprimirMatriz()
+{
+  document.getElementById("matriz").innerHTML = '';
+  document.getElementById("matriz").innerHTML +="<p> Matriz Adyacencia <hr>"; 
+  for(i=0;i<filas;i++){
+    for(j=0;j<filas;j++){
+      document.getElementById("matriz").innerHTML += matriz[i][j]+" ";
+    }
+    document.getElementById("matriz").innerHTML +="<br>";  
+  }
+}         
+
+function conexo()
+{
+    let inicio=0;
+    const final=vertices;
+    let aux=0;
+    while (inicio <=final-1 )
+    {
+      for(i=0;i<final;i++)
+      {
+        for(j=0;i<final;i++)
+        {
+          if(i!=j)
+          {
+            if(matriz[i][j]!=1)
+            {
+              aux=1;
+            }
+          }
+        }
+      }
+      inicio+=1;
+    }
+    document.getElementById("contconexo").innerHTML = '';
+    document.getElementById("contconexo").innerHTML +="<p> Resultado <hr>"; 
+    if(aux==0)
+      document.getElementById("contconexo").innerHTML +="<p> Este grafo es de tipo conexo"; 
+    else
+      document.getElementById("contconexo").innerHTML +="<p> Este grafo es de tipo no conexo";
+}
+
+function caminos(ini,lleg)
+{
+  document.getElementById("caminos").innerHTML +="<p> Ruta inicia en:"+ ini + "<br>";
+  console.log("empiezo mi ruta en "+ini);                                                                                                    
+    if ( matriz[ini][lleg] == "1" )
+    {
+      document.getElementById("caminos").innerHTML +="<p> Ha llegado a: "+ lleg + "<br>"; 
+      console.log("finalmente he llegado a " + lleg);
+      return 1;
+    }
+    if ( matriz[ini+1][lleg] == "1" )
+    {
+      document.getElementById("caminos").innerHTML +="<p> Paso por:"+ (ini +1) + "vertice <br>"; 
+      console.log("pasé por el vertice "+ (ini+1));
+      return (caminos(ini+1,lleg) + 1);
+    }
+    else{
+    return caminos(ini, lleg-1);
+    }
+}
+
+function caminos_2(ini,lleg)
+{
+    if ( matriz[ini][lleg] == 1 )
+    {
+        return 1;
+    }
+    else
+    {
+        if ( matriz[ini+1][lleg] == 1 )
+          {
+            return caminos_2(ini+1,lleg) + 1;
+          }
+        else{
+            return caminos_2(inicio, lleg-1);
+        }
+    }
+}
+
+function muestraCaminos()
+{
+  var partede=0;
+  var llegaA=0;
+  var aux_p=0;
+  var aux_ll=0;
+
+
+  for(i=0;i<partede;i++)
+  {
+    aux_p = aux_p +1;
+
+  }
+  for(j=0;j<llegaA;j++)
+  {
+    aux_ll = aux_ll +1;
+
+  }
+
+  let cami= caminos(aux_p,aux_ll);
+  document.getElementById("caminos").innerHTML +="<p>Cant. de nodos visitados: "+ cami; 
+  console.log("cantidad de nodos por lo que pasa: " + cami);
+
+}
+
+function matrizCaminos()
+{
+
+  var aux_p=0;
+  var aux_ll=0;
+  var aux_vertices=0;
+  vertices=document.getElementById("cant_vertices").value;
+
+  for(i=0;i<vertices;i++)
+  {
+    aux_vertices+=1;
+  }
+
+  matrizAux = new Array(aux_vertices);
+  matrizRes = new Array(aux_vertices);
+
+  for(i=0;i<partede;i++)
+  {
+    aux_p = aux_p +1;
+  }
+  for(j=0;j<llegaA;j++)
+  {
+    aux_ll = aux_ll +1;
+  }
+
+ // recuperador del exponente
+  var coeficiente = caminos_2(aux_ll,aux_p);
+  console.log("coefiente: "+ coeficiente);
+
+//FOR que llena la matriz resultante y auxiliar(matrizR y matrizRes2) con solo 0's
+  for (i=0;i<aux_vertices;i++)
+  {
+      matrizAux[i]=new Array(vertices);
+      matrizRes[i]=new Array(vertices);
+      for(j=0;j<aux_vertices;j++)
+      {
+        matrizAux[i][j]=0;
+        matrizRes[i][j]=0;
+      }
+  }
+
+//FOR para guardar el auxliar
+
+  for (i=0;i<aux_vertices;i++)
+  {
+    for(j=0;j<aux_vertices;j++)
+    {
+      matrizAux[i][j] = matriz[i][j];
+    }
+  }
+
+  //ciclo while para potencia () ^n ; n>1
+  var r=1;
+  if(coeficiente==1){
+    document.getElementById("matriz2").innerHTML= '';
+    for(i=0;i<filas;i++){
+      for(j=0;j<filas;j++){
+        document.getElementById("matriz2").innerHTML += matriz[i][j]+" ";
+      }
+      document.getElementById("matriz2").innerHTML +="<br>";  
+    }
+  }
+  while(r <coeficiente)
+  {
+    for(i=0;i<aux_vertices;i++)
+    { 
+      for(j=0;j<aux_vertices;j++)
+      { 
+        for(k=0;k<aux_vertices;k++)
+        { 
+          matrizRes[i][j]=matrizRes[i][j] + matrizAux[k][j]*matriz[i][k];
+        } 
+
+      }
+    }
+    r++;
+    if(r == coeficiente){
+      document.getElementById("matriz2").innerHTML= '';
+      for(i=0;i<filas;i++){
+        for(j=0;j<filas;j++){
+          document.getElementById("matriz2").innerHTML += matriz[i][j]+" ";
+        }
+        document.getElementById("matriz2").innerHTML +="<br>";  
+      }
+    }
+    for(var b=0;b<aux_vertices;b++)
+    {
+      for(j=0;j<aux_vertices;j++)
+      {
+        matrizAux[b][j]=matrizRes[b][j];
+        matrizRes[b][j]=0;
+      }
+    }
+
+  }
+
+
+
+}

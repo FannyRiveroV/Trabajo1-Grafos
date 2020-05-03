@@ -1,0 +1,106 @@
+<html>
+<head></head>
+<meta charset="UTF-8">
+    <meta name="Grafos" content="Trabajo realizado por alumnos de la universidad tecnologica
+    metropolitana para el ramo de Grafos y Lenguajes Formales">
+    <title>GRAFOS T1</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+<body>
+  <div class="navbar-fixed">
+    <nav class="blue darken-1">
+      <div class="nav-wrapper container">
+        <a href="#" class="brand-logo right">Grafos</a>
+        <a href="#" data-target="menu-responsive" class="sidenav-trigger"> <i class="material-icons">menu</i> </a>
+        <ul class="left">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="grafos.html">Crear un grafo</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col s2 white"> </div>
+    <div class="col s8">
+      <div class="card indigo">
+        <div class="card-content white-text" style="text-align: center;">
+          <span class="card-title">Instrucciones</span> <hr>
+          <p>Para crear un grafo primero debes introducir la cantidad de vertices, luego click en crear grafo.<p>
+        </div>
+      </div>       
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s3"></div>
+    <div class="col s4">
+      <input type="number" id="cant_vertices" required="required" min="1" pattern="^[0-9]+" title="Debe ser un número válido"/> 
+    </div>
+    <div class="col s4">
+      <button class="btn waves-effect waves-light pink" type="submit" name="action" value="Crear GRAFO" onclick="crear()">
+      Crear Grafo <i class="material-icons right">send</i> </button> 
+    </div>
+    <div clas="col s2"></div>
+  </div>
+    <br><br>
+  <div class="row">
+    <div class="col s2 white"> </div>
+    <div class="col s2">
+      <div class="card blue darken-1" >
+        <div id="matriz" class="card-content white-text" style="text-align: center;">
+          <h7>Matriz de adyacencia</h7> <hr>
+          <p>Una matriz de adyacencia muestra cómo está compuesto un grafo, el número 1 representa la unión de nodos, el número 0 la ausencia de la unión</p>
+        </div>
+        <div class="card-action">
+          <button class="btn waves-effect waves-light blue darken-1" type="submit" name="action" value="Imprimir matriz" onclick="imprimirMatriz()">
+          Mostrar matriz<i class="material-icons right">send</i> </button>
+        </div>
+      </div>
+    </div>
+      <div class="col s4 blue-text">
+        <h6 style="text-align: center;">Matriz de caminos</h6> <hr>
+        <div class="row">
+          <div class="input-field col s6">
+            <input type="number" id="inicioCaminos" /> Vertice de inicio
+          </div>
+          <div class="input-field col s6">
+            <input type="number" id="llegadaCaminos"/>Vertice de llegada 
+          </div>
+        </div>
+        <div style="text-align: center;" id="caminos" class="card-content white-text blue darken-1"></div>
+        <div class="row">
+          <div class="input-field col s6">
+            <button class="btn waves-effect waves-light blue darken-1" id="encamino" type="submit" name="action" value="caminos" onclick="muestraCaminos()">
+            Encontrar camino </button>
+          </div>
+          <div class="input-field col s6">
+            <button id="te" class="btn waves-effect waves-light blue darken-1" type="submit" name="action" value="matriz de caminos" 
+            onclick="matrizCaminos()">Mostrar matriz</button>
+          </div> <br> <br> <br>
+          <div class="card teal">
+            <div id="matriz2"class="card-content white-text blue darken-1"style="text-align: center;">
+              <p style="text-align: center;">1. Encontrar camino 2. Mostrar matriz</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <div class="col s2">
+      <div class="card teal">
+        <div id="contconexo"class="card-content white-text blue darken-1" style="text-align: center;">
+          <h7>Grafos conexos</h7> <hr>
+          <p>Un grafo es conexo, si para cualquier par de vértices “a” y “b”, existe al
+            menos un camino entre a y b,si no es un grafo no conexo.</p>
+            <br>
+        </div>
+        <div class="card-action blue darken-1">
+          <button class="btn waves-effect waves-light blue darken-1" type="submit" name="action" value="Conexo o no" onclick="conexo()">
+          ¿Conexo o no?<i class="material-icons right">send</i> </button>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript" src="main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script> document.addEventListener('DOMContentLoaded', function() { M.AutoInit(); }); </script>
+</html>
