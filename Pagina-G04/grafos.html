@@ -68,7 +68,7 @@
             <input type="number" id="llegadaCaminos"/>Vertice de llegada 
           </div>
         </div>
-        <div style="text-align: center;" id="caminos" class="card-content white-text blue darken-1"></div>
+        <div style="text-align: center;" class="card-content white-text blue darken-1"></div>
         <div class="row">
           <div class="input-field col s6">
             <button class="btn waves-effect waves-light blue darken-1" id="encamino" type="submit" name="action" value="caminos" onclick="muestraCaminos()">
@@ -79,7 +79,7 @@
             onclick="matrizCaminos()">Mostrar matriz</button>
           </div> <br> <br> <br>
           <div class="card teal">
-            <div id="matriz2"class="card-content white-text blue darken-1"style="text-align: center;">
+            <div id="caminos" class="card-content white-text blue darken-1"style="text-align: center;">
               <p style="text-align: center;">1. Encontrar camino 2. Mostrar matriz</p>
             </div>
           </div>
@@ -96,6 +96,30 @@
         <div class="card-action blue darken-1">
           <button class="btn waves-effect waves-light blue darken-1" type="submit" name="action" value="Conexo o no" onclick="conexo()">
           ¿Conexo o no?<i class="material-icons right">send</i> </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s2 white"> </div>
+    <div class="col s2">
+      <div class="card blue darken-1" >
+        <div id="matriz3" class="card-content white-text" style="text-align: center;">
+          <h7>Algoritmo de Prim</h7> <hr>
+          <p>El algoritmo encuentra un subconjunto de aristas que forman un árbol con todos los vértices, donde el peso total de todas las aristas en el árbol es el mínimo posible.</p>
+        </div>
+        <div class="card-action">
+          <button class="btn waves-effect waves-light blue darken-1" type="submit" name="action" value="Generar" onclick="prim()">
+          Obtener Algoritmo</button>
+        </div>
+      </div>
+    </div>
+    <div class="col s2">
+      <div class="card blue darken-1" >
+        <div id="matriz2" class="card-content white-text" style="text-align: center;">
+          <h7>Matriz De Caminos</h7> <hr>
+          <p>El número de caminos de longitud “m” entre los vértices “i” y “j” de G, es el coeficiente (i,
+            j) de la matriz de adyacencia elevada a “m”</p>
         </div>
       </div>
     </div>

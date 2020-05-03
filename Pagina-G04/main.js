@@ -3,6 +3,7 @@ var aux;
 let inicio=0;
 let ini;
 let llega;
+let auxpr;
 t=1;
 var partede, llegaA;
 partede= document.getElementById('inicioCaminos').value;
@@ -48,22 +49,23 @@ function imprimirMatriz()
 }         
 
 function conexo()
-{
-    let inicio=0;
-    const final=vertices;
-    let aux=0;
-    while (inicio <=final-1 )
+{  
+  document.getElementById("contconexo").innerHTML = '';
+  let inicio=0;
+  const final=vertices;
+  let aux=0;
+  while (inicio <=final-1 )
+  {
+    for(i=0;i<final;i++)
     {
-      for(i=0;i<final;i++)
-      {
-        for(j=0;i<final;i++)
+      for(j=0;i<final;i++)
         {
-          if(i!=j)
+        if(i!=j)
+        {
+          if(matriz[i][j]!=1)
           {
-            if(matriz[i][j]!=1)
-            {
-              aux=1;
-            }
+            aux=1;
+          }
           }
         }
       }
@@ -79,6 +81,7 @@ function conexo()
 
 function caminos(ini,lleg)
 {
+  document.getElementById("caminos").innerHTML= '';
   document.getElementById("caminos").innerHTML +="<p> Ruta inicia en:"+ ini + "<br>";
   console.log("empiezo mi ruta en "+ini);                                                                                                    
     if ( matriz[ini][lleg] == "1" )
@@ -196,6 +199,7 @@ function matrizCaminos()
   var r=1;
   if(coeficiente==1){
     document.getElementById("matriz2").innerHTML= '';
+    document.getElementById("matriz2").innerHTML+="<p> Resultado </p> <hr>"
     for(i=0;i<filas;i++){
       for(j=0;j<filas;j++){
         document.getElementById("matriz2").innerHTML += matriz[i][j]+" ";
@@ -236,7 +240,102 @@ function matrizCaminos()
     }
 
   }
-
-
-
+}
+function prim()
+{
+  document.getElementById("matriz2").innerHTML= '';
+  vertices = document.getElementById("cant_vertices").value;
+  filas=vertices;
+  col=filas;
+  var matrizprim=new Array();
+  matrizprim=matriz;
+  var aux2;
+  var p=0;
+  /* la matriz del grafo anterior la ordenamos para no obtener una autoadyacencia haciendo 0 los datos 00, 11, 22*/
+  for(i=0;i<filas;i++)
+  {
+    for(j=0;j<filas;j++){
+      if(i==j){
+        matriz[i][j]=0;
+      }
+    }
+  }
+  /* recorre la matriz creada y donde encuentre adyacencia (que haya un 1 en la matriz de crear()) solicita el peso de la arista */
+  for(i=0;i<filas;i++)
+  {
+    for(j=0;j<filas;j++){
+      if(matriz[i][j]=='1'){
+        aux2=prompt("Ingrese el peso de arista entre los vertices ["+i+"],["+j+"] : ")
+        matrizprim[i][j]=aux2;
+        matrizprim[j][i]=aux2;    /* el peso se repitira para no generar una sobrecarga de pedidos ej: [0][1] va a ser la mismo que [1][0] */
+      }
+      else{
+        matrizprim[i][j]=0;        /* si encuentra un numero distinto de 1, que en este caso es cero el valor sera 0 */
+      }
+    }
+  }
+  /* muestra la matriz con el peso de la arista entre los vertices */
+  document.getElementById("matriz2").innerHTML= '';
+  document.getElementById("matriz3").innerHTML += "Matriz con pesos de las aristas <br> ";
+  for(i=0;i<filas;i++){
+    for(j=0;j<filas;j++){
+      document.getElementById("matriz3").innerHTML += matriz[i][j]+" ";
+    }
+    document.getElementById("matriz3").innerHTML +="<br>";  
+  }
+  /* obtener la arista con menor valor */
+  var menor=100;
+  var rec=0;
+  menores=new Array();
+  menores2=new Array();
+  ordenar=new Array();
+  conex=new Array();
+  
+  while(rec<3){ 
+    for(i=0;i<filas;i++){
+      for(j=0;j<filas;j++){
+        if(matrizprim[i][j]!=0){
+          menores2.push(matrizprim[i][j]);
+          rec++;
+        }
+      }
+    }
+  }
+  document.getElementById("matriz3").innerHTML += "Array con las aristas <br> ";
+  ordenar = menores2.sort();
+  /* muestra los datos de la matriz en orden de menor a menor*/
+  document.getElementById("matriz3").innerHTML += " ["+ordenar+"] <br>";
+  
+  for(var n=0;n<(menores2.length);n++){
+    var posicion=ordenar[n];
+    for(i=0;i<filas;i++){
+      for(j=0;j<filas;j++){
+        if(matrizprim[i][j]==posicion){
+          var menorx = i;  
+          var menory = j;
+          menores.push(menorx);  /* en esta parte se añaden las posiciones dependiendo donde esta el dato */
+          menores.push(menory);
+        }
+      }
+    }
+  }
+  document.getElementById("matriz3").innerHTML += " ["+menores+"] <br>";
+  document.getElementById("matriz3").innerHTML += " Generacion de arbol";
+  while(p<menores.length){
+    if((menores[p]==menores[p+2]) || (menores[p]==menores[p+3])){
+      if(menores[p+1]==menores[p+2]){
+        p+=2;
+      }else{
+        conex.push(menores[p]);
+        console.log(conex)
+        conex.push(menores[p+1]);
+        console.log(conex)
+        p+=2;
+      }
+    }
+    else{
+      p+=2;
+    }
+  }
+  document.getElementById("matriz3").innerHTML += " ["+conex+"] <br>";
 }
