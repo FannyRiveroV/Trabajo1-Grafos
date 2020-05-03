@@ -7,3 +7,5 @@ Integrantes
 - Axel Jerez 
 - Fanny Rivero 
 - Esteban Rojas 
+
+Antiguo repositorio: https://github.com/FannyRiveroV/Grafos-Trabajo1.git
