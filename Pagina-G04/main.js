@@ -82,18 +82,15 @@ function conexo()
 function caminos(ini,lleg)
 {
   document.getElementById("caminos").innerHTML= '';
-  document.getElementById("caminos").innerHTML +="<p> Ruta inicia en:"+ ini + "<br>";
-  console.log("empiezo mi ruta en "+ini);                                                                                                    
-    if ( matriz[ini][lleg] == "1" )
+  document.getElementById("caminos").innerHTML +="<p> Ruta inicia en:"+ ini + "<br>";                                                                                               
+    if ( matriz[ini][lleg] == 1 )
     {
       document.getElementById("caminos").innerHTML +="<p> Ha llegado a: "+ lleg + "<br>"; 
-      console.log("finalmente he llegado a " + lleg);
       return 1;
     }
-    if ( matriz[ini+1][lleg] == "1" )
+    if ( matriz[ini+1][lleg] == 1 )
     {
       document.getElementById("caminos").innerHTML +="<p> Paso por:"+ (ini +1) + "vertice <br>"; 
-      console.log("pasé por el vertice "+ (ini+1));
       return (caminos(ini+1,lleg) + 1);
     }
     else{
@@ -243,7 +240,7 @@ function matrizCaminos()
 }
 function prim()
 {
-  document.getElementById("matriz2").innerHTML= '';
+  document.getElementById("matriz3").innerHTML= '';
   vertices = document.getElementById("cant_vertices").value;
   filas=vertices;
   col=filas;
@@ -275,7 +272,7 @@ function prim()
     }
   }
   /* muestra la matriz con el peso de la arista entre los vertices */
-  document.getElementById("matriz2").innerHTML= '';
+  document.getElementById("matriz3").innerHTML= '';
   document.getElementById("matriz3").innerHTML += "Matriz con pesos de las aristas <br> ";
   for(i=0;i<filas;i++){
     for(j=0;j<filas;j++){
@@ -339,3 +336,125 @@ function prim()
   }
   document.getElementById("matriz3").innerHTML += " ["+conex+"] <br>";
 }
+
+function conexo2(graph)
+{
+  let inicio=0;
+  const final=vertices;
+  let aux=0;
+  while (inicio <=final-1 )
+  {
+      for(i=0;i<final;i++)
+      {
+        for(j=0;i<final;i++)
+        {
+          if(i!=j)
+          {
+            if(graph[i][j]!=1)
+            {
+              aux=1;
+            }
+          }
+        }
+      }
+      inicio+=1;
+    }
+    if(aux==0)
+      return 1 ;  //1 si es conexo
+    else
+      return 0;  //0 si no es conexo
+
+}
+function grados(vertice)
+{
+  var aux_vertices=0;
+  var contador=0;
+  vertices=document.getElementById("cant_vertices").value;
+
+
+  for(i=0;i<vertices;i++)
+  {
+    aux_vertices+=1;
+  }
+
+
+  for(i=0;i<aux_vertices;i++)
+  {
+    if(matriz[vertice][i]== 1)
+      contador++;
+  }
+  return contador;
+}
+
+
+function esEuleriano( )
+{
+  var Grados;
+  var conexion=0;
+  var aux_vertices=0;
+  var option=0;
+  vertices=document.getElementById("cant_vertices").value;
+  a=matriz;
+  for(i=0;i<vertices;i++)
+  {
+    aux_vertices+=1;
+  }
+
+  for(j=0;j<aux_vertices;j++)
+  {
+    Grados=grados(j);
+    console.log("grado de "+j+": "+Grados);
+    if (Grados%2!= 0)
+      option=1;
+  }
+
+  conexion=conexo2(a);
+  console.log("conexo?: " + conexion);
+  console.log("option: " + option);
+
+  if(conexion ==1 && option==0)
+  {
+    document.getElementById("ceuler").innerHTML= "<p> Este grafo es de tipo euleriano";
+  }
+  else
+  {
+    document.getElementById("ceuler").innerHTML= "<p> Este grafo no es de tipo euleriano";
+  }
+}
+function esHamiltoniano()
+{
+  grafo_1=matriz;
+  var Grados;
+  var conexion=0;
+  var aux_vertices=0;
+  var option=0;
+  vertices=document.getElementById("cant_vertices").value;
+
+  for(i=0;i<vertices;i++)
+  {
+    aux_vertices+=1;
+  }
+
+  for(j=0;j<aux_vertices;j++)
+  {
+    Grados=grados(j);
+    console.log("grado de "+j+": "+Grados);
+    if (Grados< 2)
+      option=1;
+  }
+
+  conexion=conexo2(grafo_1);
+  console.log("conexo?: " + conexion);
+  console.log("option: " + option);
+
+  if(conexion ==1 && option==0)
+  {
+    document.getElementById("hamil").innerHTML="<p> Es un grafo hamiltoniano"
+  }
+  if(conexion !=1 || option!=0)
+  {
+    document.getElementById("hamil").innerHTML="<p> No es un grafo hamiltoniano"
+  }
+
+}
+
